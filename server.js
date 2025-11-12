@@ -43,12 +43,16 @@ const connectDB = async () => {
 
 connectDB();
 // Créer un serveur HTTP
-const server = http.createServer(app); // Crée ton serveur HTTP avec Express
-const io = socketIo(server, { // Utilise socketIo pour initialiser le serveur WebSocket
+const server = http.createServer(app);
+const io = socketIo(server, {
   cors: {
-    origin: "*", // Ajuste en fonction de ton frontend
-    methods: ["GET", "POST"]
-  }
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+server.listen(port, () => {
+  console.log(`🚀 Serveur Express & Socket.io en ligne sur le port ${port}`);
 });
 
 // ton code de gestion des notifications
@@ -82,9 +86,7 @@ io.on("connection", (socket) => {
     });
 });
 
-server.listen(5000, () => {
-    console.log("Serveur WebSocket et API en ligne sur http://localhost:5000");
-});
+
 //Connexion
 app.post("/", (req, res) => {
   const userLogin = req.body;
