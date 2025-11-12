@@ -16,14 +16,8 @@ const http = require('http');
 const socketIo = require('socket.io');
 const axios = require("axios");
 
-app.use(cors({
-  origin: [
-    "http://localhost:3000", // pour le dev local
-    "https://twitter-frontend.onrender.com", // <-- ton URL en ligne exacte
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
-}));
+app.use(cors({ origin: "*", methods: ["GET", "POST", "PUT", "DELETE"] }));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("build"));
@@ -679,13 +673,13 @@ app.get("/topic/:tag", async (req, res) => {
 });
 
 // Servir les fichiers du frontend en production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
-  });
-};
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+//   });
+// };
 
 
 // Démarrer la détection d'émotions via Flask
