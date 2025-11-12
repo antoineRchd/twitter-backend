@@ -46,7 +46,7 @@ connectDB();
 const server = http.createServer(app); // Crée ton serveur HTTP avec Express
 const io = socketIo(server, { // Utilise socketIo pour initialiser le serveur WebSocket
   cors: {
-    origin: "http://localhost:3000", // Ajuste en fonction de ton frontend
+    origin: "*", // Ajuste en fonction de ton frontend
     methods: ["GET", "POST"]
   }
 });
